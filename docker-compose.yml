@@ -1,0 +1,20 @@
+services:
+  jellydrop:
+    build: .
+    restart: unless-stopped
+    # Jellyfin's UID:GID, so Jellyfin can read and manage the downloaded files
+    user: '1000:1000'
+    environment:
+      LIBRARY_ROOTS: Music:/media/music,Motivation:/media/motivation
+      # YTDLP_COOKIES: /cookies.txt
+    volumes:
+      # The same host directories your Jellyfin libraries use
+      - /srv/media/music:/media/music
+      - /srv/media/motivation:/media/motivation
+      - staging:/staging
+      # - ./cookies.txt:/cookies.txt:ro
+    ports:
+      - 127.0.0.1:3000:3000
+
+volumes:
+  staging:

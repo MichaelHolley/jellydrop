@@ -1,1 +1,32 @@
 @import 'tailwindcss';
+@import '@fontsource-variable/bricolage-grotesque/standard.css';
+
+@theme {
+	--font-sans: 'Bricolage Grotesque Variable', ui-sans-serif, system-ui, sans-serif;
+
+	--color-plum-950: #1d1524;
+	--color-plum-900: #271d30;
+	--color-plum-800: #362a42;
+	--color-plum-700: #4b3d5a;
+	--color-mist: #ece6f1;
+	--color-haze: #a597b3;
+	--color-amber: #f4b545;
+	--color-amber-deep: #d99520;
+	--color-mint: #84d9ae;
+	--color-coral: #ff8a80;
+}
+
+@layer base {
+	html {
+		color-scheme: dark;
+		-webkit-tap-highlight-color: transparent;
+	}
+
+	body {
+		@apply bg-plum-950 font-sans text-mist antialiased;
+	}
+
+	:focus-visible {
+		@apply outline-2 outline-offset-2 outline-amber;
+	}
+}
