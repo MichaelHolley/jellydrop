@@ -1,6 +1,6 @@
 services:
   jellydrop:
-    build: .
+    image: <dockerhub-user>/jellydrop:latest
     restart: unless-stopped
     # Jellyfin's UID:GID, so Jellyfin can read and manage the downloaded files
     user: '1000:1000'
