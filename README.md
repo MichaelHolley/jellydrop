@@ -10,9 +10,10 @@ Paste a YouTube link, pick a folder in one of your Jellyfin libraries, and jelly
 ## Setup
 
 1. Copy [`docker-compose.yml`](docker-compose.yml) and adjust it:
+   - `image`: replace `<dockerhub-user>` with the Docker Hub user that publishes the image
    - `user`: the UID:GID Jellyfin runs as (`id jellyfin` on the host)
    - `LIBRARY_ROOTS` and the matching bind mounts: the same host directories your Jellyfin libraries use
-2. `docker compose up -d --build`
+2. `docker compose pull && docker compose up -d`
 3. In Jellyfin, enable **Real time monitoring** for each library (Dashboard → Libraries → library → Manage library). jellydrop doesn't call Jellyfin's API; new files are picked up by the file watcher.
 
 The port is published on `127.0.0.1` only. jellydrop has no login of its own, so put it behind your reverse proxy's auth or reach it via Tailscale.
@@ -30,6 +31,14 @@ jellydrop expects to be served over HTTPS (it rejects form submissions whose ori
 The app refuses to start if `LIBRARY_ROOTS` is malformed or a path doesn't exist.
 
 yt-dlp is upgraded on every container start, so a restart picks up fixes for YouTube changes.
+
+## Updating
+
+`docker compose pull && docker compose up -d` updates jellydrop to the latest published image. A plain restart only upgrades yt-dlp.
+
+## Publishing the image
+
+Pushes to `main` build the `Dockerfile` for `linux/amd64` and push `<user>/jellydrop:latest` and `<user>/jellydrop:sha-<short sha>` to Docker Hub. The workflow needs the repo secrets `DOCKERHUB_USERNAME` and `DOCKERHUB_TOKEN` (an access token with Read & Write scope).
 
 ## Development
 
