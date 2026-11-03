@@ -32,14 +32,6 @@ The app refuses to start if `LIBRARY_ROOTS` is malformed or a path doesn't exist
 
 yt-dlp is upgraded on every container start, so a restart picks up fixes for YouTube changes.
 
-## Updating
-
-`docker compose pull && docker compose up -d` updates jellydrop to the latest published image. A plain restart only upgrades yt-dlp.
-
-## Publishing the image
-
-Pushes to `main` build the `Dockerfile` for `linux/amd64` and push `<user>/jellydrop:latest` and `<user>/jellydrop:sha-<short sha>` to Docker Hub. The workflow needs the repo secrets `DOCKERHUB_USERNAME` and `DOCKERHUB_TOKEN` (an access token with Read & Write scope).
-
 ## Development
 
 ```sh
